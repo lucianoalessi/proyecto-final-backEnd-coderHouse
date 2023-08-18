@@ -108,7 +108,7 @@ class ProductManager{
         let newProductsList = currentProductsList.map(item => {
             if (item.id === parseInt(pid)) {
                 const updatedProduct = {
-                    ...item,
+                    ...item, //esto copia el id
                     title,
                     description,
                     price,
