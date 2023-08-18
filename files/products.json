@@ -9,11 +9,11 @@
     "id": 1
   },
   {
-    "title": "Samsung Galaxy S23",
+    "title": "Samsung Galaxy S24",
     "description": "nuevo con caja sellada",
     "price": 800.5,
     "thumbnail": "path/to/image2.jpg",
-    "code": "PRD002",
+    "code": "1234565",
     "stock": 15,
     "id": 2
   },
@@ -22,7 +22,7 @@
     "description": "Importado desde EE.UU",
     "price": 999.99,
     "thumbnail": "algo",
-    "code": "1223456987",
+    "code": "12345",
     "stock": 114,
     "id": 3
   },

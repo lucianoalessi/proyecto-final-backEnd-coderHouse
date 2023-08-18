@@ -91,7 +91,7 @@ class ProductManager{
 
         //verificamos que no se ingrese un producto con un codigo existente.
         for( const item of currentProductsList){
-            if(item.code === code){
+            if(item.code === code && item.id !== pid){
                 console.error('ERROR: Codigo existente');
                 return
             }
@@ -106,7 +106,7 @@ class ProductManager{
         
         //recorremos el array con objetos productos hasta encontrar uno con el id ingresado como parametro y se actualiza el objeto con los datos ingresados.
         let newProductsList = currentProductsList.map(item => {
-            if (item.id === parseInt(pid)) {
+            if (item.id === pid) {
                 const updatedProduct = {
                     ...item, //esto copia el id
                     title,
