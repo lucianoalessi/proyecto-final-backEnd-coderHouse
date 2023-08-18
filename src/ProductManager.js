@@ -91,7 +91,7 @@ class ProductManager{
 
         //verificamos que no se ingrese un producto con un codigo existente.
         for( const item of currentProductsList){
-            if(item.code === code && item.id !== pid){
+            if(item.code === code && item.id !== pid){ // si el codigo del producto ya existe en otro producto, dara error. el && item.id !== pid nos permite modificar el producto deseado sin tener que cambiar el codigo del mismo.  
                 console.error('ERROR: Codigo existente');
                 return
             }
