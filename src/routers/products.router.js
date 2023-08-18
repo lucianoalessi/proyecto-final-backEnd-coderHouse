@@ -54,10 +54,9 @@ router.post('/' , async (req, res) => {
 //con put modificamos informacion del servidor
 router.put('/:pid' , async (req, res) => {
 
-    const productID = req.params //obtenemos el id de producto ingresado el cliente por paramas
-    const productFilter = await manager.getProductById(productID);  //filtramos el producto deseado
-    const update = req.body                                         //agregamos la informacion que actualizara el cliente en una variable
-    const productUpdate = await manager.updateProduct(productFilter,update); // actualizamos el producto filtrado
+    const productID = req.params.pid //obtenemos el id de producto ingresado el cliente por paramas
+    const update = req.body     //agregamos la informacion que actualizara el cliente en una variable
+    const productUpdate = await manager.updateProduct(productID,update); // actualizamos el producto filtrado
 
     res.send({status:'Sucess: product updated', productUpdate});
 })

@@ -75,10 +75,14 @@ class ProductManager{
         return 'Not found'
     }
 
-    updateProduct = async (id, title, description, price, thumbnail, code, stock) => {
+    updateProduct = async (id , obj) => {
+
+        const pid = id
+
+        const {title, description, price, thumbnail, code, stock} = obj
 
         //verificamos que se ingresen todos los datos. 
-        if(!id || !title || !description || !price || !thumbnail || !code || !stock){
+        if( !title || !description || !price || !thumbnail || !code || !stock){
           console.error("ERROR: Datos del producto incompletos")
           return 
         }
@@ -102,7 +106,7 @@ class ProductManager{
         
         //recorremos el array con objetos productos hasta encontrar uno con el id ingresado como parametro y se actualiza el objeto con los datos ingresados.
         let newProductsList = currentProductsList.map(item => {
-            if (item.id === id) {
+            if (item.id === parseInt(pid)) {
                 const updatedProduct = {
                     ...item,
                     title,
@@ -113,12 +117,14 @@ class ProductManager{
                     stock,
                 };
                 return updatedProduct;
+            }else{
+                return item; // Devuelve el elemento original si no se ha actualizado
             }     
-            return item; // Devuelve el elemento original si no se ha actualizado
+           
         });
 
         //sobreescribimos el archivo con el contenido actualizado.
-        await fs.promises.writeFile(this.path,JSON.stringify(newProductsList,null,2))
+        await fs.promises.writeFile(this.path,JSON.stringify(newProductsList,null,2));
     }
             
 
