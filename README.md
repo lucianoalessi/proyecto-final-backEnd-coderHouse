@@ -9,7 +9,7 @@ Backend de un sistema de comercio electrónico diseñado para gestionar el Stock
    
 ### Uso
 1. Inicia el servidor: `npm start`
-2 .Accede a la API en: `http://localhost:8080`
+2. Accede a la API en: `http://localhost:8080`
 
 ### Endpoints
 A continuación se presentan algunos ejemplos de los endpoints disponibles en la API:
