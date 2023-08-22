@@ -88,5 +88,14 @@
     "code": "PRD010",
     "stock": 5,
     "id": 10
+  },
+  {
+    "title": "Tabla Element",
+    "description": "Tabla de skate marca Element, modelo Nyjah",
+    "price": "200",
+    "thumbnail": "no hay",
+    "code": "Abc1213",
+    "stock": "20",
+    "id": 11
   }
 ]

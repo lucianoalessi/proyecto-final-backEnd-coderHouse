@@ -1,6 +1,6 @@
 import ProductManager from '../ProductManager.js'
 import { Router } from 'express';
-import {__dirname} from '../../utils.js'
+import __dirname from '../../utils.js'
 
 //Inicializamos la extencion de express, Router
 const router = Router()

@@ -7,14 +7,16 @@ class ProductManager{
         this.products = [];
     }
 
-    addProduct = async (title, description, price, thumbnail, code, stock) => {
+    addProduct = async (obj) => {
 
+        const {title, description, price, thumbnail, code, stock} = obj
         //verificamos que se ingresen todos los datos.
         if(!title || !description || !price || !thumbnail || !code || !stock){
             console.error("ERROR: Datos del producto incompletos")
             return 
         }
 
+        const productList = await this.getProducts()
         //definimos el objeto con los datos ingresados.
         const product = {
             title,
@@ -26,7 +28,7 @@ class ProductManager{
         }
 
         //verificamos que no se ingrese un producto con un codigo existente.
-        for( const item of this.products){
+        for( const item of productList){
             if(item.code === product.code){
                 console.error('ERROR: Codigo existente');
                 return
@@ -34,19 +36,21 @@ class ProductManager{
         }
         
         //Definimos un id para cada producto de forma ascendente, segun su posicion en la lista de productos. 
-        if(this.products.length === 0){
+        if(productList.length === 0){
             product.id = 1
         }else{
-            product.id = this.products[this.products.length -1].id + 1;  //de esta forma accedemos al objeto que se encuentra al final del array y le sumamos 1, para que sea de codigo unico y ascendente segun su posicion. 
+            product.id = productList[productList.length -1].id + 1;  //de esta forma accedemos al objeto que se encuentra al final del array y le sumamos 1, para que sea de codigo unico y ascendente segun su posicion. 
         }
 
         //En una sola linea seria asi(con operador ternario):
         //this.products.length > 0 ? this.products[this.products.length - 1].id + 1 : 1;
 
-        this.products.push(product);
+
+        productList.push(product);
+        
 
         //creamos el archivo en la ruta (path) y le pasamos el array de objetos products converido a json. 
-        await fs.promises.writeFile(this.path,JSON.stringify(this.products,null,2)) // el segundo parametro de stringify es opcional asi que le pusimos null para salterarlo y el 3er parametro es el espacio de sangria. al pasarle un 2 estamos indicando que queremos que la cadena JSON tenga un nivel de sangría de 2 espacios.
+        await fs.promises.writeFile(this.path,JSON.stringify(productList,null,2)) // el segundo parametro de stringify es opcional asi que le pusimos null para salterarlo y el 3er parametro es el espacio de sangria. al pasarle un 2 estamos indicando que queremos que la cadena JSON tenga un nivel de sangría de 2 espacios.
     }
 
     getProducts = async () => {

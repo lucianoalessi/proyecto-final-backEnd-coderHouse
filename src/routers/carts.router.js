@@ -1,7 +1,7 @@
 // Importando los módulos y clases necesarios.
 import { Router } from "express"; // Importando la clase Router del módulo "express".
 import CartManager from "../CartManager.js"; // Importando la clase CartManager 
-import {__dirname} from '../../utils.js' // Importando la constante __dirname
+import __dirname from '../../utils.js' // Importando la constante __dirname
 
 // Creando una nueva instancia de Router.
 const router = Router();
