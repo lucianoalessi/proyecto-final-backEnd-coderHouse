@@ -7,6 +7,21 @@ class ProductManager{
         this.products = [];
     }
 
+
+    getProducts = async () => {
+
+        //Leemos el contenido del archivo almacenado en la ruta (path) y lo almacenamos en una variable.Luego con Json.Parse()lo convertimos a formato objeto para poder manipularlo.
+        try{
+            const productsList = await fs.promises.readFile(this.path,"utf-8")
+            const productsListParse = JSON.parse(productsList)
+            return productsListParse
+
+        //en caso de que se genere un error debido a que no exista el archivo que se intenta leer debido a que todavia no se agrego ningun producto, devolvemos this.products, el cual seria un array vacio.
+        }catch{
+            return this.products;
+        }
+    }
+
     addProduct = async (obj) => {
 
         const {title, description, price, thumbnail, code, stock} = obj
@@ -53,19 +68,7 @@ class ProductManager{
         await fs.promises.writeFile(this.path,JSON.stringify(productList,null,2)) // el segundo parametro de stringify es opcional asi que le pusimos null para salterarlo y el 3er parametro es el espacio de sangria. al pasarle un 2 estamos indicando que queremos que la cadena JSON tenga un nivel de sangría de 2 espacios.
     }
 
-    getProducts = async () => {
-
-        //Leemos el contenido del archivo almacenado en la ruta (path) y lo almacenamos en una variable.Luego con Json.Parse()lo convertimos a formato objeto para poder manipularlo.
-        try{
-            const productsList = await fs.promises.readFile(this.path,"utf-8")
-            const productsListParse = JSON.parse(productsList)
-            return productsListParse
-
-        //en caso de que se genere un error debido a que no exista el archivo que se intenta leer debido a que todavia no se agrego ningun producto, devolvemos this.products, el cual seria un array vacio.
-        }catch{
-            return this.products;
-        }
-    }
+    
 
     getProductById = async (searchId) => {
 
