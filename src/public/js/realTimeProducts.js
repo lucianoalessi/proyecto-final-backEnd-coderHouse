@@ -77,11 +77,10 @@ const deleteButton =  document.getElementById('delete-btn');
 // Agregar un evento para cuando se haga clic en el botón de eliminación
 deleteButton.addEventListener('click', () => {
   const idInput = document.getElementById('productID'); // obtenemos el input donde se ingresa el id
-  const productID = parseInt(idInput.value); //convertimos el valor del input a entero
-
+  //const productID = parseInt(idInput.value); //convertimos el valor del input a entero
+  const productID = idInput.value
   //enviamos el valor al servidor
-  socketCliente.emit('deleteProduct' , productID); 
-
+  socketCliente.emit('deleteProduct' , productID);
   idInput.value = "" // Restablecer el valor del input
 
 })
