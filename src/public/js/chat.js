@@ -1,6 +1,7 @@
 const socketCliente = io();
 
 const messageInput = document.getElementById('message-input');
+const form = document.getElementById('form')
 const sendButton = document.getElementById('send-button');
 
 
@@ -18,18 +19,21 @@ Swal.fire({
     },
 }).then(result => {     //result contiene información sobre si se confirmó la ventana emergente o se canceló.
     user = result.value  // Contiene el valor ingresado por el usuario en el campo de texto de la ventana emergente
-    socket.emit('authenticated', user);
+    socketCliente.emit('authenticated', user);
 })
 
 
-sendButton.addEventListener('click', event =>{
+form.onsubmit=(e)=>{
+    e.preventDefault()
     const message = messageInput.value.trim();
-    console.log(message);
+
     if(message.length > 0){
-        socket.emit('message', { user: user, message: message })
+        socketCliente.emit('message', { user: user, message: message })
         messageInput.value = '';
     }
-});
+}
+
+// sendButton.addEventListener('submit', enviarMensaje);
 
 // const enviarMensaje = (e) => {
 
@@ -38,14 +42,14 @@ sendButton.addEventListener('click', event =>{
 //     console.log(message);
 
 //     if(message.length > 0){
-//         socket.emit('message', { user: user, message: message })
+//         socketCliente.emit('message', { user: user, message: message })
 //         messageInput.value = '';
 //     }
 // };
 
 
 
-socket.on('messageLogs', data => {
+socketCliente.on('messageLogs', data => {
     if (!user) return;
     const messagesLog = document.getElementById('messages-log');
     let messages = "";

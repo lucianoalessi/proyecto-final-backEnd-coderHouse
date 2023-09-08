@@ -23,7 +23,6 @@ export default class messageManager{
     // Agrega un nuevo mensaje a la base de datos.
     addMessages = async (message) => {
         try{
-            console.log('mensaje agregado')
             return await messageModel.create(message);
         }catch(error){
             // En caso de error, registra un mensaje de error y devuelve el error.

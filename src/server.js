@@ -95,24 +95,20 @@ socketServer.on('connection', async (socket) => {
 
 socketServer.on('connection', async (socket) => {
 
-    console.log("nuevo cliente conectado")
+    console.log("nuevo cliente conectado 2")
 
 
     socket.on('authenticated', data=> {
+        console.log('hola', data)
         socket.broadcast.emit('newUserConnected', data);
     })
 
-    
-    // socket.on('nuevoUsuario', async (data) => {
-    //     //const agregarMensaje = await mManager.addMessages(data);
-    // } )
-
     socket.on('message', async data => {
+        console.log(data)
         const addMessage = await mManager.addMessages(data)
-        socket.emit('messageLogs', addMessage);
+        const messages = await mManager.getMessages()
+        socket.emit('messageLogs', messages);
     })
-
-    
 
 
 });
