@@ -23,15 +23,51 @@ Swal.fire({
 })
 
 
+//obtenemos los datos del formulario (el mensaje).
+
 form.onsubmit=(e)=>{
     e.preventDefault()
-    const message = messageInput.value.trim();
+    const message = messageInput.value.trim();  //valor del mensaje, eliminando los espacios. 
 
     if(message.length > 0){
-        socketCliente.emit('message', { user: user, message: message })
-        messageInput.value = '';
+        socketCliente.emit('message', { user: user, message: message })  //enviamos el usuario con el mensaje al servidor
+        messageInput.value = ''; //reseteamos el input para los mensajes
     }
 }
+
+// recibimos la lista de mensajes del servidor
+
+socketCliente.on('messageLogs', data => {
+    
+    if (!user) return;
+    let messages = "";
+    const messagesLog = document.getElementById('messages-log');
+
+    //por cada elemento del array de mensajes recibidos, lo renderizamos de la siguiente manera:
+    data.forEach(message => {
+        messages = messages + `${data.user} dice: ${data.message} </br>`
+    })
+    messagesLog.innerHTML = messages;
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // sendButton.addEventListener('submit', enviarMensaje);
 
@@ -48,17 +84,6 @@ form.onsubmit=(e)=>{
 // };
 
 
-
-socketCliente.on('messageLogs', data => {
-    if (!user) return;
-    const messagesLog = document.getElementById('messages-log');
-    let messages = "";
-    data.forEach(message => {
-        messages = messages + `${data.user} dice: ${data.message} </br>`
-    })
-    messagesLog.innerHTML = messages;
-})
-
 // socket.on('newUserConnected', user=>{
 //     if (!user) return
 //     Swal.fire({
@@ -70,9 +95,6 @@ socketCliente.on('messageLogs', data => {
 //         showConfirmButton: false
 //     })
 // })
-
-
-
 
 
 // Swal.fire({

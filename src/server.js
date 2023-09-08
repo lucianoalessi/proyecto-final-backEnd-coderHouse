@@ -98,18 +98,17 @@ socketServer.on('connection', async (socket) => {
     console.log("nuevo cliente conectado 2")
 
 
+    //recibimos el nombre del usuario que se registro:
     socket.on('authenticated', data=> {
-        console.log('hola', data)
         socket.broadcast.emit('newUserConnected', data);
     })
 
+
+    //recibimos el usuario con su mensaje
     socket.on('message', async data => {
-        console.log(data)
-        const addMessage = await mManager.addMessages(data)
-        const messages = await mManager.getMessages()
-        socket.emit('messageLogs', messages);
+        const addMessage = await mManager.addMessages(data); //agregamos el mensaje del usuario a la base de datos. 
+        const messages = await mManager.getMessages(); //obtenemos todos los mensajes de la base de datos.
+        socket.emit('messageLogs', messages); //enviamos al cliente la lista de todos los mensajes (array).
     })
-
-
 });
 
