@@ -38,13 +38,12 @@ form.onsubmit=(e)=>{
 // recibimos la lista de mensajes del servidor
 
 socketCliente.on('messageLogs', data => {
-    
     if (!user) return;
-    let messages = "";
     const messagesLog = document.getElementById('messages-log');
+    let messages = "";
 
     //por cada elemento del array de mensajes recibidos, lo renderizamos de la siguiente manera:
-    data.forEach(message => {
+    data.forEach(data => {
         messages = messages + `${data.user} dice: ${data.message} </br>`
     })
     messagesLog.innerHTML = messages;
