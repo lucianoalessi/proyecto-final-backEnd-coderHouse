@@ -12,8 +12,8 @@ const cartSchema = new mongoose.Schema({
         type:[
             // Cada objeto en el array "products" tiene dos campos: "_id" y "quantity".
             {
-                _id:{    
-                    type: mongoose.Types.ObjectId,
+                productID:{    
+                    type: mongoose.Schema.Types.ObjectId,
                     ref: 'Products'
                 },
                 quantity:{
