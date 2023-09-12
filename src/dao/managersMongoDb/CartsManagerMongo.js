@@ -50,26 +50,21 @@ export default class CartManager{
     }
 
     // Agrega un producto a un carrito existente por sus IDs.
-    addProductToCart = async (idCart, idProduct) => {
+    addProductToCart = async (cid, pid) => {
 
         try{
-            const cart = await cartModel.findOne({_id: idCart});
-            const product = await productModel.findOne({_id: idProduct});
-            const productIndex = cart.products.findIndex(item => item._id === product._id); // Buscamos el producto en el carrito basado en el ID del producto.
-            console.log(productIndex)
-            console.log('holaaaaa',product._id)
-            console.log(cart)
-            console.log(product)
+            const cart = await cartModel.findOne({_id: cid});
+            
+            const addProduct = await productModel.findOne({_id: pid});
+            const productIndex = cart.products.findIndex(item => item.productID.toString() == addProduct._id.toString()); // Buscamos el producto en el carrito basado en el ID del producto.
             
             if(productIndex !== -1){
                 cart.products[productIndex].quantity += 1; // Si el producto ya existe en el carrito, aumentamos su cantidad.
             }else{
-                cart.products.push(product) // Si el producto no existe en el carrito, lo añadimos con cantidad 1.
+                cart.products.push({productID: pid}) // Si el producto no existe en el carrito, lo añadimos con cantidad 1.
             }
-            
-            //cart.products.push(product);
-    
-            await cartModel.updateOne({_id: idCart}, cart);
+
+            await cartModel.updateOne({_id: cid}, cart);
 
         }catch(error){
             console.error('Error al agregar el producto al carrito:' ,error.message);
